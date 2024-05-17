@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="center">
+    <form action="/register" method="POST" class="rounded border pb-3">
+        <div class="m-5">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required class="form-control" placeholder="Enter email" style="width: 300px;"">            
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required class="form-control" placeholder="Enter username">       
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required class="form-control" placeholder="Enter password">     
+            </div>
+        </div>
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <hr/>
+        <div class="d-flex justify-content-center">
+            <input type="submit" value="Register"  class="btn btn-primary w-75">
+        </div>
+
+    </form>
+</div>
+{% endblock %}

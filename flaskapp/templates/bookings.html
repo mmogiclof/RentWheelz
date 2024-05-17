@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}My Bookings {% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/cars">Cars</a></li>
+      <li class="breadcrumb-item active" aria-current="page">My Bookings</li>
+    </ol>
+</nav>
+
+{% if current_user.reservations|length == 0 %}
+    <h4 class="text-center">You have no reservations.</h4>
+{% endif %}
+<div class="container-fluid mb-3">
+    {% for booking in bookings %}
+        {% if loop.index0 % 2 == 0 %}
+            <div class="row mt-3">
+        {% endif %}
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="row card-body p-0">
+                    <div class="col-sm-6">
+                        <h5 class="card-title">{{ booking.car.model }}</h5>
+                        <p class="card-text">
+                            {% if booking.status.upper() == 'CONFIRMED' %}
+                                <span class="text-success">{{ booking.status.upper() }}</span>
+                            {% elif booking.status.upper() == 'CANCELLED' %}
+                                <span class="text-danger">{{ booking.status.upper() }}</span>
+                            {% else %}
+                                <span class="text-primary">{{ booking.status.upper() }}</span>
+                            {% endif %}
+                        </p>                        <p class="card-text">From <i>{{ booking.pick_up_date.strftime('%Y-%m-%d') }}</i> to <i>{{ booking.return_date.strftime('%Y-%m-%d') }}</i></p>
+                        <p class="card-text">TOTAL: Rs. {{ booking.total_price }}</p>
+                        <button href="#" class="btn btn-danger" {% if booking.status == 'Completed' or booking.status == 'Cancelled' %} disabled {% endif %} onclick="window.location.href='/cancel_booking/{{ booking.id }}'">Cancel Ride</button>
+                    </div>
+                    <img class="col-sm-6 p-0" src="{{ url_for('static',filename='default-car.jpg') }}" alt="sans"/>
+                </div>
+            </div>
+        </div>
+        {% if loop.index0 % 2 == 1 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% if current_user.reservations|length % 2 == 1 %}
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

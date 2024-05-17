@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mt-5">
+        <h1>About Rent Wheelz</h1>
+        <p>Rent Wheelz is a car rental service that allows you to rent a car for a day, a week, or even a month. We have a wide range of cars to choose from, so you can find the perfect car for your needs. Our service is fast, easy, and convenient, so you can get on the road in no time. Rent Wheelz is the best way to get around town, whether you need a car for work, leisure, or just to get from A to B. Rent Wheelz - your ride, your way.</p>
+    <br/>
+    <h3>API Endpoints</h3>
+    <style>
+        ul li {
+                margin-bottom: 10px;
+            }
+    </style>
+    <ul>
+        <li>
+            <h5>Cars</h5>
+            <ul>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/cars</strong> - Get a list of all available cars</li>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/cars/{id}</strong> - Get a specific car</li>
+                <li><span class="text-white bg-primary rounded p-1">POST</span> <strong>/api/v1/cars/create</strong> - Create a car</li>
+                <li><span class="text-white bg-danger rounded p-1">DELETE</span> <strong>/api/v1/cars/{id}</strong> - Delete a car</li>
+            </ul>
+        </li>
+        <li>
+            <h5>Users</h5>
+            <ul>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/users</strong> - Get a list of all available users</li>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/users/{id}</strong> - Get a specific user</li>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/users/{id}/bookings</strong> - Get a list of bookings for the user</li>
+                <li><span class="text-white bg-danger rounded p-1">DELETE</span> <strong>/api/v1/users/{id}</strong> - Delete a user</li>
+            </ul>
+        </li>
+        <li>
+            <h5>Reservations</h5>
+            <ul>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/reservations</strong> - Get a list of all available reservations</li>
+                <li><span class="text-white bg-success rounded p-1">GET</span> <strong>/api/v1/reservations/{id}</strong> - Get a specific reservation</li>
+                <li><span class="text-white bg-primary rounded p-1">POST</span> <strong>/api/v1/reservations/create</strong> -Create a reservation</li>
+                <li><span class="text-white bg-danger rounded p-1">DELETE</span> <strong>/api/v1/reservations/{id}</strong> - Delete a reservation</li>
+            </ul>
+        </li>
+    </ul>
+    
+    </div>
+{% endblock %}
