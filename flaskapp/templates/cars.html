@@ -9,8 +9,12 @@
         {% endif %}
             <div class="col-md-4">
                 <div class="card" style="width: 25rem;">
-                    <img src="{{ url_for('static', filename='default-car.jpg')}}" class="card-img-top" alt="Thumbnail Image">
-                    <div class="card-body">
+                    {% if car.thumbnail %}
+                      <img src="{{ car.thumbnail }}" class="card-img-top" alt="Thumbnail Image">
+                    {% else %}
+                      <img src="{{ url_for('static', filename='default-car.jpg') }}" class="card-img-top" alt="Thumbnail Image">
+                    {% endif %}
+                      <div class="card-body">
                         <h5 class="card-title">{{ car.model }}</h5>
                         <p class="card-text">{{ car.brand }}</p>
                         <p class="card-text">Rs. {{ car.price_per_hour }}/hr</p>
