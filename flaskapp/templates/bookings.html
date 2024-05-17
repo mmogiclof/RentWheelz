@@ -21,7 +21,7 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="row card-body p-0">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 text-center">
                         <h5 class="card-title">{{ booking.car.model }}</h5>
                         <p class="card-text">
                             {% if booking.status.upper() == 'CONFIRMED' %}
@@ -33,9 +33,15 @@
                             {% endif %}
                         </p>                        <p class="card-text">From <i>{{ booking.pick_up_date.strftime('%Y-%m-%d') }}</i> to <i>{{ booking.return_date.strftime('%Y-%m-%d') }}</i></p>
                         <p class="card-text">TOTAL: Rs. {{ booking.total_price }}</p>
-                        <button href="#" class="btn btn-danger" {% if booking.status == 'Completed' or booking.status == 'Cancelled' %} disabled {% endif %} onclick="window.location.href='/cancel_booking/{{ booking.id }}'">Cancel Ride</button>
+                        <div class="container">
+                            <button href="#" class="btn btn-danger" {% if booking.status == 'Completed' or booking.status == 'Cancelled' %} disabled {% endif %} onclick="window.location.href='/cancel_booking/{{ booking.id }}'">Cancel Ride</button>
+                        </div>
                     </div>
-                    <img class="col-sm-6 p-0" src="{{ url_for('static',filename='default-car.jpg') }}" alt="sans"/>
+                    {% if booking.car.thumbnail %}
+                        <img class="col-sm-6 p-0" src="{{ booking.car.thumbnail }}" alt="{{ booking.car.model }}" width="200" height="200"/>
+                    {% else %}
+                        <img class="col-sm-6 p-0" src="{{ url_for('static',filename='default-car.jpg') }}" alt="sans"/>
+                    {% endif %}
                 </div>
             </div>
         </div>
