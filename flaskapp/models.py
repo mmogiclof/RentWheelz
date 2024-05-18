@@ -20,7 +20,7 @@ class Car(db.Model):
     id = db.Column("carId", db.Integer, primary_key=True)
     model = db.Column(db.String(80), nullable=False)
     registration_number = db.Column(db.String(120), unique=True, nullable=False)
-    availability = db.Column(db.String(50), nullable=False)
+    availability = db.Column(db.Boolean, nullable=False, default=True)
     brand = db.Column(db.String(50), nullable=False)
     price_per_hour = db.Column(db.Float, nullable=False)
     thumbnail = db.Column(db.String(255), nullable=True)

@@ -10,15 +10,14 @@
             <div class="col-md-4">
                 <div class="card" style="width: 25rem;">
                     {% if car.thumbnail %}
-                      <img src="{{ car.thumbnail }}" class="card-img-top" alt="Thumbnail Image">
+                      <img src="{{ car.thumbnail }}" class="card-img-top {% if not car.availability %} gray-scaled {% endif %}" alt="Thumbnail Image" width="250" height="250">
                     {% else %}
-                      <img src="{{ url_for('static', filename='default-car.jpg') }}" class="card-img-top" alt="Thumbnail Image">
+                      <img src="{{ url_for('static', filename='default-car.jpg') }}" class="card-img-top {% if not car.availability %} gray-scaled {% endif %}" alt="Thumbnail Image">
                     {% endif %}
                       <div class="card-body">
                         <h5 class="card-title">{{ car.model }}</h5>
-                        <p class="card-text">{{ car.brand }}</p>
-                        <p class="card-text">Rs. {{ car.price_per_hour }}/hr</p>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#reservationModal" data-car-id="{{ car.id }}" data-car-model="{{ car.model }}">Reserve</button>
+                        <p class="card-text font-weight-light">&#8377; {{ car.price_per_hour }}/hour</p>
+                        <button class="btn {{ 'btn-primary' if car.availability else 'btn-secondary' }}" data-toggle="modal" data-target="#reservationModal" data-car-id="{{ car.id }}" data-car-model="{{ car.model }}" {% if not car.availability %} disabled {% endif %}>Reserve</button>
                     </div>
                 </div>
             </div>
@@ -32,14 +31,15 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Modal Title</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form action="bookings" method="post" id="bookingForm">
-                <input type="hidden" class="car-id-input" name="car_id">
+                <input type="hidden" class="car-id-input" name="car_id" value="">
+                <input type="hidden" class="user-email-input" name="user_email" value="{{ current_user.email }}">
                 <div class="form-group">
                     <label for="pick-up-date">Pick Up Date</label>
                     <input type="date" class="form-control" id="pick-up-date" name="pick-up-date" value="">
@@ -54,6 +54,7 @@
                 </div>
 
               </form>
+              <div class="booking-error text-danger small"></div>     
             </div>
             <div class="modal-footer justify-content-start">
                 <button id="reserve-btn" class="btn btn-primary">Reserve</button>
