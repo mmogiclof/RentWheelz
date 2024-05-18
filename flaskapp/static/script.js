@@ -46,7 +46,7 @@ $(document).ready(function() {
                 $('#reservationModal .modal-body').prepend('<div class="flash-message alert alert-danger" role="alert"><span>' + data.error + '</span></div>');
                 return;
             }
-            alert('Reservation successful! Check your bookings.');
+            alert('Reservation successful!');
             window.location.href = '/bookings';
         })
         .catch((error) => {
